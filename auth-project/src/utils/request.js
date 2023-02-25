@@ -1,11 +1,13 @@
 import axios from "axios"
+import { getToken } from "./auth.js"
 
 const service = axios.create({
-  baseURL: 'http://localhost:8888/'
+  baseURL: 'http://127.0.0.1:20002/'
 })
 
 // 请求拦截器
 service.interceptors.request.use(config => {
+  config.headers['token'] = getToken()
   return config
 })
 
