@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import {getCurrentInstance, ref} from "vue"
+  import {ref} from "vue"
   import {useRouter} from 'vue-router'
   import {login} from '../../api/api.js'
   import {setToken} from "../../utils/auth.js"
@@ -32,12 +32,12 @@ import {getCurrentInstance, ref} from "vue"
   const router = useRouter()
 
   const form = ref({
-    account: '',
-    password: '',
+    account: 'admin',
+    password: 'admin',
   })
   const rules = ref({
     account: [
-      { required: true, message: '请输入用户名', trigger: 'blur' },
+      { required: true, message: '请输入用户名', trigger: 'blur'},
       { min: 3, max: 16, message: '长度必须在3-16位之间', trigger: 'blur' },
     ],
     password: [
@@ -56,7 +56,7 @@ import {getCurrentInstance, ref} from "vue"
         console.log(response)
         if (response.data.code === 1) {
           setToken(response.data.data.token)
-          router.push('/home')
+          router.push('/home/index')
         } else {
           ElMessage(response.data.msg)
         }

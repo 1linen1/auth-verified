@@ -8,6 +8,13 @@ export function login(data) {
   })
 }
 
+export function logout() {
+  return axios({
+    url: "/user/logout",
+    method: 'GET'
+  })
+}
+
 export function getMenuResource() {
   return axios({
     url: "/menu/resources",
