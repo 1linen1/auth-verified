@@ -4,14 +4,19 @@ import {defineStore} from "pinia"
 
 // 使用了组合式API的写法
 export const useMenuStore = defineStore('navStore', () => {
-  let homeRoute = ref([])
+  let menuList = ref([])
 
-  function setHomeRoute(homeRoute) {
-    this.homeRoute = homeRoute
+  function setMenuList(menuList) {
+    this.menuList = menuList
+  }
+
+  function clearMenuList() {
+    this.menuList = []
   }
 
   return {
-    homeRoute,
-    setHomeRoute
+    menuList,
+    setMenuList,
+    clearMenuList,
   }
 })

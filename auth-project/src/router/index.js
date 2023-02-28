@@ -44,14 +44,16 @@ function changeFormat(menuResource) {
 
 router.beforeEach(async (to, from, next) => {
   const menuStore = useMenuStore()
-  let homeRoute = menuStore.homeRoute
-  if (homeRoute.length <= 0 && "/login" !== to.path) {
+  let menuList = menuStore.menuList
+  if (menuList.length <= 0 && "/login" !== to.path) {
     // 获取原始菜单数据
     const response = await getMenuResource()
-    // 封装成路由数据
-    homeRoute = changeFormat(response.data.data)
+
     // 保存到 Pinia中
-    menuStore.setHomeRoute(homeRoute)
+    menuStore.setMenuList(response.data.data)
+
+    // 封装成路由数据
+    let homeRoute = changeFormat(response.data.data)
 
     await router.addRoute(homeRoute)
     // console.log(to.path)

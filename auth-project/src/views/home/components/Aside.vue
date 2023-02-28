@@ -20,19 +20,18 @@
     Menu as IconMenu,
   } from '@element-plus/icons-vue'
   import {onMounted, ref} from "vue"
-  import {getMenuResource} from "../../../api/api.js"
   import {useRouter} from "vue-router"
+  import {useMenuStore} from "../../../store/index.js"
 
   const router = useRouter()
+  const menuStore = useMenuStore()
 
   let menus = ref([])
 
-  onMounted(async () => {
-    let response = await getMenuResource()
-    console.log(response)
-    if (response.data.code === 1) {
-      menus.value = response.data.data
-    }
+  onMounted(() => {
+    menus.value = menuStore.menuList
+    // 权宜之计：让每次刷新页面都进入Index页面
+    router.push("index")
   })
 
   function changeViews(name) {

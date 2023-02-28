@@ -18,12 +18,20 @@
   import Aside from "./components/Aside.vue"
   import {logout} from "../../api/api.js"
   import {useRouter} from "vue-router"
+  import {removeToken} from "../../utils/auth.js"
+  import {useMenuStore} from "../../store/index.js"
 
   const router = useRouter()
+  const menuStore = useMenuStore()
 
   async function quit() {
     let response = await logout()
     if (response.data.code === 1) {
+      // 清除Token
+      removeToken()
+      // 清除Pinia中的数据
+      menuStore.clearMenuList()
+
       ElMessage.success(response.data.msg)
       router.push('/login')
     }
